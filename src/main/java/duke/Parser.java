@@ -38,6 +38,8 @@ public class Parser {
     public static Command parse(String fullCommand)
         throws UnrecognizedTaskException, NoIndexException, EmptyTaskException, NoKeywordException {
 
+        assert fullCommand != null;
+
         // Removes unnecessary whitespace
         fullCommand = fullCommand.trim();
 
@@ -105,6 +107,8 @@ public class Parser {
      * @throws InvalidDateException If the dateTimeString is not in a valid date time format.
      */
     public static LocalDateTime getDateTime(String dateTimeString) throws InvalidDateException {
+
+        assert dateTimeString != null;
 
         // Remove unnecessary whitespace
         dateTimeString = dateTimeString.trim();
