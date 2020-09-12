@@ -9,6 +9,9 @@ capable of keeping track of tasks given by the user.
 * [Features](#features)
   * [Help](#help-help)
   * [Adding tasks](#adding-tasks)
+    * [Adding a ToDo](#adding-a-todo-todo)
+    * [Adding an Event](#adding-an-event-event)
+    * [Adding a Deadline](#adding-a-deadline-deadline)
   * [Marking tasks as done](#marking-tasks-as-done-done)
   * [Deleting tasks](#deleting-tasks-delete)
   * [Listing tasks](#listing-tasks-list)
@@ -35,7 +38,7 @@ Displays a list of commands
 *Cipher* provides three types of tasks: ToDo, Event, and Deadline.
 
 For Events and Deadlines, *Cipher* accepts the following date time format:
-* `YYY-MM-DD`T`HH:MM:SS`
+* `YYYY-MM-DD`T`HH:MM:SS`
 * `YYYY-MM-DD`T`HH:MM`
 * `YYYY-MM-DD`
 * `HH:MM:SS`
@@ -163,6 +166,7 @@ Exits the program.
 *Cipher*'s data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ## Command summary
+
 Action | Format | Examples
 ------------ | ------------- | -------------
 Add a **ToDo** | `todo TASK_DESCRIPTION` | `todo study`
