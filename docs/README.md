@@ -25,7 +25,7 @@ capable of keeping track of tasks given by the user.
 2. Download the latest `duke.jar` from [here](https://github.com/erinmayg/ip/releases).
 3. Copy the file to the folder you want to use as the *home folder* for *Cipher*.
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds.
-<p align="center"><img src="https://github.com/erinmayg/ip/blob/master/docs/Ui-start.png" height="500px"></p>
+<p align="center"><img src="Ui-start.png" height="500px"></p>
 
 ## Features
 
