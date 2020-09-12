@@ -85,11 +85,17 @@ public class TaskListTest {
 
             ArrayList<Task> list = new ArrayList<>();
             list.add(new ToDo("sleep"));
+            list.add(new ToDo("die"));
+            list.add(new ToDo("eat"));
+            list.add(new ToDo("study"));
             TaskList taskList = new TaskList(list);
-            taskList.markDone(0);
+            taskList.markDone(0, 2, 3);
 
             ArrayList<Task> listTemplate = new ArrayList<>();
             listTemplate.add(new ToDo("sleep").markDone());
+            listTemplate.add(new ToDo("die"));
+            listTemplate.add(new ToDo("eat").markDone());
+            listTemplate.add(new ToDo("study").markDone());
             TaskList taskListTemplate = new TaskList(listTemplate);
 
             assertEquals(taskList, taskListTemplate);
@@ -105,16 +111,41 @@ public class TaskListTest {
 
             ArrayList<Task> list = new ArrayList<>();
             list.add(new ToDo("sleep"));
+            list.add(new ToDo("die"));
+            list.add(new ToDo("eat"));
+            list.add(new ToDo("study"));
             TaskList taskList = new TaskList(list);
-            taskList.deleteTask(0);
+            taskList.deleteTasks(0, 1, 3);
 
-            TaskList taskListTemplate = new TaskList();
+            ArrayList<Task> listTemplate = new ArrayList<>();
+            listTemplate.add(new ToDo("eat"));
+            TaskList taskListTemplate = new TaskList(listTemplate);
 
             assertEquals(taskList, taskListTemplate);
 
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Test
+    public void findTest() {
+        ArrayList<Task> list = new ArrayList<>();
+        list.add(new ToDo("die"));
+        list.add(new ToDo("die hard"));
+        list.add(new ToDo("die young"));
+        list.add(new ToDo("cry"));
+        list.add(new ToDo("cry hard"));
+        TaskList taskList = new TaskList(list);
+
+        ArrayList<Task> listTemplate = new ArrayList<>();
+        listTemplate.add(new ToDo("die"));
+        listTemplate.add(new ToDo("die hard"));
+        listTemplate.add(new ToDo("die young"));
+        listTemplate.add(new ToDo("cry hard"));
+
+        assertEquals(taskList.findTasks("die", "hard"),
+            listTemplate);
     }
 
     @Test
@@ -157,9 +188,7 @@ public class TaskListTest {
         list.add(new ToDo("sleep"));
         TaskList taskList = new TaskList(list);
 
-        assertThrows(DuplicateTaskException.class, () -> {
-            taskList.addToDo("sleep");
-        });
+        assertThrows(DuplicateTaskException.class, () -> taskList.addToDo("sleep"));
     }
 
     @Test
@@ -168,8 +197,6 @@ public class TaskListTest {
         list.add(new ToDo("sleep"));
         TaskList taskList = new TaskList(list);
 
-        assertThrows(InvalidIndexException.class, () -> {
-            taskList.deleteTask(2);
-        });
+        assertThrows(InvalidIndexException.class, () -> taskList.deleteTasks(2));
     }
 }

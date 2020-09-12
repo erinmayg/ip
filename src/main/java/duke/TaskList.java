@@ -80,6 +80,20 @@ public class TaskList {
         return printList(date);
     }
 
+    /**
+     * Prints the tasks in the given task list.
+     *
+     * @param tasks The task list to be printed.
+     * @return A String representation of the list of tasks.
+     */
+    private String printList(ArrayList<Task> tasks) {
+        StringBuilder str = new StringBuilder();
+        IntStream.range(0, tasks.size())
+            .forEach(i -> str.append(String.format("%d. %s\n", i + 1, tasks.get(i))));
+
+        return str.toString().trim();
+    }
+
     /** Prints the tasks in the list. */
     private String printList() {
 
@@ -87,11 +101,7 @@ public class TaskList {
             return "You have nothing on your list!";
         }
 
-        StringBuilder str = new StringBuilder();
-        IntStream.range(0, tasks.size())
-            .forEach(i -> str.append(String.format("%d. %s\n", i + 1, tasks.get(i))));
-
-        return str.toString().trim();
+        return printList(tasks);
     }
 
     /**
@@ -251,7 +261,7 @@ public class TaskList {
      * @param taskNumbers The numbers of the tasks to be deleted.
      * @throws InvalidIndexException If the taskNumbers < 1 or larger than the size of the taskList.
      */
-    public String deleteTask(Integer... taskNumbers) throws InvalidIndexException {
+    public String deleteTasks(Integer... taskNumbers) throws InvalidIndexException {
         try {
 
             // Check if all taskNumbers within index
@@ -287,12 +297,12 @@ public class TaskList {
      * Finds tasks that contains any of the given keywords.
      *
      * @param keywords The keywords to search for in tasks.
+     * @return A list of tasks with the given keywords.
      */
-    public String findTasks(String... keywords) {
+    public ArrayList<Task> findTasks(String... keywords) {
 
-        StringBuilder str = new StringBuilder();
+        ArrayList<Task> foundTasks = new ArrayList<>();
 
-        int i = 0;
         boolean containsKeyword;
         for (Task task : tasks) {
 
@@ -305,20 +315,26 @@ public class TaskList {
             }
 
             if (containsKeyword) {
-                if (i == 0) {
-                    str.append("Here are the matching tasks on your list.\n");
-                }
-                str.append(String.format("%d. ", (i + 1)));
-                str.append(String.format("%s\n", task));
-                i++;
+                foundTasks.add(task);
             }
         }
 
-        if (i == 0) {
-            str.append("OOPS. There are no tasks on your list with the following keyword.");
+        return foundTasks;
+    }
+
+    /**
+     * Prints the list of tasks with the given keyword(s).
+     *
+     * @param keywords The keywords to search for in tasks.
+     * @return A String representation of the matching tasks.
+     */
+    public String printTasks(String... keywords) {
+        ArrayList<Task> foundTasks = findTasks(keywords);
+        if (foundTasks.size() == 0) {
+            return "You have nothing on your list with the given keyword.";
         }
 
-        return str.toString().trim();
+        return "Here are the tasks with the given keyword:\n" + printList(foundTasks);
     }
 
     /** Prints the recently added task. */

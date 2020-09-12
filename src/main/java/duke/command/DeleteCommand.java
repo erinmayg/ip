@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
-        String deleteTasks = taskList.deleteTask(taskNumbers);
+        String deleteTasks = taskList.deleteTasks(taskNumbers);
         storage.saveTasks(taskList.getTasks());
         return deleteTasks;
     }

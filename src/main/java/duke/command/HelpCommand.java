@@ -28,7 +28,6 @@ public class HelpCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printMessage(COMMAND_LIST);
         return COMMAND_LIST + "\n";
     }
 }
