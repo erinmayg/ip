@@ -37,7 +37,7 @@ public class MainWindow extends AnchorPane {
     private ImageView view = new ImageView(sendIcon);
 
     private Message intro = new Message(
-        "Hello! I am Bolot, your personal chat-bot companion.\n\n"
+        "Hello! I am Cipher, your personal chat-bot companion.\n\n"
         + "How may I help you?");
 
     /** Initializes the new window. */

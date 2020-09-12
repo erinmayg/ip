@@ -5,6 +5,6 @@ public class FileLoadError extends DukeException {
 
     /** Constructs a FileLoadError exception. */
     public FileLoadError() {
-        super("Error in reading file. Bolot will now create a new file.");
+        super("Error in reading file. Cipher will now create a new file.");
     }
 }

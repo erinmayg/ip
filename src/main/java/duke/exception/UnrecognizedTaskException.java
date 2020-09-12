@@ -10,6 +10,6 @@ public class UnrecognizedTaskException extends DukeException {
      * Constructs an UnrecognizedTaskException.
      */
     public UnrecognizedTaskException() {
-        super("OOPS. Bolot does not recognize the command :( Try again.");
+        super("OOPS. Cipher does not recognize the command :( Try again.");
     }
 }

@@ -28,7 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("Bolot");
+            stage.setTitle("Cipher");
             stage.getIcons().add(dukeIcon);
             stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setDuke(duke);

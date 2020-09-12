@@ -117,9 +117,13 @@ public class TaskList {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMM y");
         StringBuilder str = new StringBuilder();
 
-        IntStream.range(0, tasks.size())
-            .filter(i -> tasks.get(i).getDate().equals(date))
-            .forEach(i -> str.append(String.format("%d. %s\n", i + 1, tasks.get(i))));
+        int i = 1;
+        for (Task task: tasks) {
+            if (task.getDate().equals(date)) {
+                str.append(String.format("%d. %s\n", i + 1, task));
+                i++;
+            }
+        }
 
         if (str.length() == 0) {
             return "You have nothing to do on "

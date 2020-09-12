@@ -9,15 +9,15 @@ public class Ui {
     public static final String LINE = "____________________________________________________________";
 
     /** The name of the Duke bot. */
-    private final String botName = "Bolot";
+    private final String botName = "Cipher";
 
     /** The logo for the Duke bot. */
     private final String logo = "Greetings, human. I am\n"
-        + " ______      ___   _____       ___    _________\n"
-        + "|_   _ \\   .'   `.|_   _|    .'   `. |  _   _  |\n"
-        + "  | |_) | /  .-.  \\ | |     /  .-.  \\|_/ | | \\_|\n"
-        + " _| |__) |\\  `-'  /_| |__/ |\\  `-'  /   _| |_\n"
-        + "|_______/  `.___.'|________| `.___.'   |_____|";
+        + " ,-----.,--.,------. ,--.  ,--.,------.,------.\n"
+        + "'  .--./|  ||  .--. '|  '--'  ||  .---'|  .--. '\n"
+        + "|  |    |  ||  '--' ||  .--.  ||  `--, |  '--'.'\n"
+        + "'  '--'\\|  ||  | --' |  |  |  ||  `---.|  |\\  \\\n"
+        + " `-----'`--'`--'     `--'  `--'`------'`--' '--'";
 
     /** The scanner used to read user inputs. */
     private final Scanner sc = new Scanner(System.in);
