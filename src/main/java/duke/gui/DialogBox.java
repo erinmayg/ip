@@ -12,12 +12,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 /**
@@ -27,12 +28,20 @@ import javafx.scene.shape.Polygon;
  */
 public class DialogBox extends HBox {
 
+    private static final Color DUKE_COLOR = Color.valueOf("#160e3c");
+    private static final CornerRadii DUKE_CORNER = new CornerRadii(0, 10, 10, 10, false);
+    private static final Background DUKE_BG = new Background(new BackgroundFill(DUKE_COLOR, DUKE_CORNER, Insets.EMPTY));
+
+    private static final Color USER_COLOR = Color.valueOf("#3c317c");
+    private static final CornerRadii USER_CORNER = new CornerRadii(10, 0, 10, 10, false);
+    private static final Background USER_BG = new Background(new BackgroundFill(USER_COLOR, USER_CORNER, Insets.EMPTY));
+
     @FXML
     private Label dialog;
     @FXML
     private Polygon triangle;
     @FXML
-    private ImageView displayPicture;
+    private Circle circleMask;
 
     private DialogBox(String text, Image img) {
         try {
@@ -45,13 +54,10 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-
-        displayPicture.setImage(img);
+        circleMask.setFill(new ImagePattern(img));
     }
 
-    /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
-     */
+    /** Flips the dialog box such that the ImageView is on the left and text on the right. */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
@@ -61,22 +67,21 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        CornerRadii cornerRadii = new CornerRadii(10, 0, 10, 10, false);
-        Background bg = new Background(new BackgroundFill(Color.valueOf("#3c317c"), cornerRadii, Insets.EMPTY));
-        db.dialog.setBackground(bg);
-        db.triangle.setFill(Color.valueOf("#3c317c"));
+        db.dialog.setBackground(USER_BG);
+        db.triangle.setFill(USER_COLOR);
         return db;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getDukeDialog(Message msg, Image img) {
+        var db = new DialogBox(msg.getText(), img);
         db.flip();
-
-        CornerRadii cornerRadii = new CornerRadii(0, 10, 10, 10, false);
-        Background bg = new Background(new BackgroundFill(Color.valueOf("#160e3c"), cornerRadii, Insets.EMPTY));
-        db.dialog.setBackground(bg);
-        db.triangle.setFill(Color.valueOf("#160e3c"));
+        db.dialog.setBackground(DUKE_BG);
+        db.triangle.setFill(DUKE_COLOR);
         db.triangle.setScaleX(-1);
+
+        if (msg.isError()) {
+            db.dialog.setStyle("-fx-text-fill: red");
+        }
 
         return db;
     }

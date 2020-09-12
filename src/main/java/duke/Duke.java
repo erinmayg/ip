@@ -2,6 +2,7 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.gui.Message;
 
 /** The duke bot that stores your tasks. */
 public class Duke {
@@ -65,14 +66,14 @@ public class Duke {
      * @param input The user's input
      * @return The Duke bot's response
      */
-    public String getResponse(String input) {
+    public Message getResponse(String input) {
         assert input != null;
 
         try {
             Command c = Parser.parse(input);
-            return c.execute(tasks, ui, storage);
+            return new Message(c.execute(tasks, ui, storage));
         } catch (DukeException e) {
-            return e.getMessage();
+            return new Message(e.getMessage(), true);
         }
     }
 }

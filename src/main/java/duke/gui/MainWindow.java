@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -32,6 +33,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private Image bgImage = new Image(this.getClass().getResourceAsStream("/images/wallpaper.png"));
+    private Image sendIcon = new Image(this.getClass().getResourceAsStream("/images/send.png"));
+    private ImageView view = new ImageView(sendIcon);
+
+    private Message intro = new Message(
+        "Hello! I am Bolot, your personal chat-bot companion.\n\n"
+        + "How may I help you?");
 
     /** Initializes the new window. */
     @FXML
@@ -44,13 +51,17 @@ public class MainWindow extends AnchorPane {
             BackgroundPosition.DEFAULT, bgSize);
         dialogContainer.setBackground(new Background(bg));
 
-        // Scroll Pane
+        // Scroll Pane and Scroll Bar
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.getStylesheets().add(this.getClass().getResource("/view/scrollbar.css").toString());
+
+        // Button
+        view.setFitHeight(25);
+        view.setFitWidth(25);
+        sendButton.setGraphic(view);
 
         // Bot Greeting
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(
-            "Hello! I am Bolot, your personal chat-bot companion.\n\n"
-                + "How may I help you?", dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(intro, dukeImage));
     }
 
     public void setDuke(Duke d) {
@@ -64,11 +75,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+
+        if (input.isEmpty()) {
+            return;
+        }
+
+        Message response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(input, userImage),
             DialogBox.getDukeDialog(response, dukeImage)
         );
+
         userInput.clear();
 
         // Terminate when "bye"

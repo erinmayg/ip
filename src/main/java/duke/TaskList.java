@@ -56,7 +56,6 @@ public class TaskList {
             TaskList t = (TaskList) o;
             return tasks.equals(t.tasks);
         }
-
         return false;
     }
 
@@ -89,9 +88,8 @@ public class TaskList {
         }
 
         StringBuilder str = new StringBuilder();
-
-        IntStream.range(0, tasks.size()).forEach(
-            i -> str.append(String.format("%d. %s\n", i + 1, tasks.get(i))));
+        IntStream.range(0, tasks.size())
+            .forEach(i -> str.append(String.format("%d. %s\n", i + 1, tasks.get(i))));
 
         return str.toString().trim();
     }
@@ -155,10 +153,10 @@ public class TaskList {
         try {
             String task = input.substring(0, input.indexOf('/')).trim();
             LocalDateTime date = input.contains("to ")
-                ? Parser.getDateTime(input.substring(input.indexOf(
-                    "/at") + "/at ".length(), input.indexOf("to ")))
-                : Parser.getDateTime(input.substring(input.indexOf(
-                    "/at") + "/at ".length()));
+                ? Parser.getDateTime(input.substring(
+                    input.indexOf("/at") + "/at ".length(), input.indexOf("to ")))
+                : Parser.getDateTime(input.substring(
+                    input.indexOf("/at") + "/at ".length()));
 
             LocalDateTime endDate = null;
             if (input.contains("to ")) {
@@ -207,8 +205,8 @@ public class TaskList {
         try {
 
             String task = input.substring(0, input.indexOf('/')).trim();
-            LocalDateTime date = Parser.getDateTime(input.substring(
-                input.indexOf("/by") + "/by ".length()));
+            LocalDateTime date = Parser.getDateTime(
+                input.substring(input.indexOf("/by") + "/by ".length()));
 
             Deadline deadline = new Deadline(task, date);
 
@@ -265,7 +263,8 @@ public class TaskList {
             }
 
             // Store deleted tasks (to print)
-            ArrayList<Task> deletedTasks = Stream.of(taskNumbers).map(taskNo -> tasks.get(taskNo - 1))
+            ArrayList<Task> deletedTasks = Stream.of(taskNumbers)
+                .map(taskNo -> tasks.get(taskNo - 1))
                 .collect(Collectors.toCollection(ArrayList::new));
 
             // Delete the tasks
@@ -275,7 +274,6 @@ public class TaskList {
             // List deleted tasks
             StringBuilder str = new StringBuilder();
             str.append("Noted. I've removed these tasks:\n");
-
             deletedTasks.forEach(deleted -> str.append(String.format("%s\n", deleted)));
 
             return str.toString().trim();
@@ -296,11 +294,9 @@ public class TaskList {
 
         int i = 0;
         boolean containsKeyword;
-
         for (Task task : tasks) {
 
             containsKeyword = false;
-
             for (String keyword: keywords) {
                 if (task.getTask().contains(keyword.trim().toLowerCase())) {
                     containsKeyword = true;
@@ -312,10 +308,8 @@ public class TaskList {
                 if (i == 0) {
                     str.append("Here are the matching tasks on your list.\n");
                 }
-
                 str.append(String.format("%d. ", (i + 1)));
                 str.append(String.format("%s\n", task));
-
                 i++;
             }
         }

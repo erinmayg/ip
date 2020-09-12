@@ -13,6 +13,7 @@ import duke.command.DoneCommand;
 import duke.command.EventCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.ToDoCommand;
 import duke.exception.EmptyTaskException;
@@ -45,40 +46,34 @@ public class Parser {
 
         // Determines the case for each command
         String firstWord = getFirstWord(fullCommand);
-
         switch (firstWord) {
+        case "help":
+            return new HelpCommand();
+            // Fallthrough
         case "todo":
             return new ToDoCommand(getTask(fullCommand, firstWord));
             // Fallthrough
-
         case "event":
             return new EventCommand(getTask(fullCommand, firstWord));
             // Fallthrough
-
         case "deadline":
             return new DeadlineCommand(getTask(fullCommand, firstWord));
             // Fallthrough
-
         case "list":
             return new ListCommand(fullCommand);
             // Fallthrough
-
         case "find":
             return new FindCommand(getKeywords(fullCommand));
             // Fallthrough
-
         case "done":
             return new DoneCommand(getTaskNumbers(fullCommand, firstWord));
             // Fallthrough
-
         case "delete":
             return new DeleteCommand(getTaskNumbers(fullCommand, firstWord));
             // Fallthrough
-
         case "bye":
             return new ExitCommand();
             // Fallthrough
-
         default:
             throw new UnrecognizedTaskException();
             // Fallthrough
@@ -154,7 +149,6 @@ public class Parser {
         try {
             String[] taskNumbers = fullCommand.substring(firstWord.length()).trim().split(" ");
             return Stream.of(taskNumbers).map(Integer::valueOf).toArray(Integer[]::new);
-
         } catch (NumberFormatException numError) {
             throw new NoIndexException(firstWord);
         }
